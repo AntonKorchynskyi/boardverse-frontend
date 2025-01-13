@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 
-const Registration = () => {
+const RegistrationPage = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -118,4 +118,4 @@ const Registration = () => {
   );
 };
 
-export default Registration;
+export default RegistrationPage;

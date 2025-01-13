@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Browse = () => {
+const BrowsePage = () => {
   return (
     <div className="text-center mt-2 text-xl">Browse</div>
   )
 }
 
-export default Browse
+export default BrowsePage

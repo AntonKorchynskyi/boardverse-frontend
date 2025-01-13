@@ -1,8 +1,7 @@
-
-
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 
 const links = [
   { href: "/", label: "home" },
@@ -16,13 +15,13 @@ const Navbar = () => {
   return (
     <nav>
       <div className="flex items-center justify-between bg-navBackground px-4 text-lg">
-        {/* Logo and Title */}
+        {/* logo and title */}
         <Link href="/">
           <div className="flex items-center text-lg font-semibold">
             <Image
               src="/logo.png"
               alt="BoardVerse logo"
-              width={65}
+              width={65} 
               height={65}
               priority
             />
@@ -30,7 +29,7 @@ const Navbar = () => {
           </div>
         </Link>
 
-        {/* Navigation Links */}
+        {/* navigation links */}
         <ul className="flex-grow flex justify-center space-x-6">
           {links.map((link) => (
             <li key={link.href} className="hover:bg-transparent hover:text-gray-300 transition">
@@ -41,9 +40,9 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Sign In and Sign Up Buttons */}
+        {/* sign in and sign up buttons */}
         <div className="flex items-center gap-4">
-          {/* Sign In Button */}
+          {/* sign in */}
           <Link
             href="/login"
             className="capitalize px-4 py-2 text-white hover:text-gray-300 transition"
@@ -51,12 +50,12 @@ const Navbar = () => {
             Sign in
           </Link>
 
-          {/* Sign Up Button */}
+          {/* sign up */}
           <Link
             href="/registration"
             className="flex items-center gap-2 px-4  bg-white text-gray-800 rounded-full shadow hover:bg-gray-100 transition"
           >
-            Sign up
+            Sign up <ArrowRight className="h-5 w-5" />
           </Link>
         </div>
       </div>

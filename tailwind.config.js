@@ -13,6 +13,7 @@ module.exports = {
         background: "var(--background)",
         foreground: "var(--foreground)",
         navBackground: "#233241",
+        colorAdd: "#b447a6",
       },
       fontSize: {
         navCustom: "0.875rem",

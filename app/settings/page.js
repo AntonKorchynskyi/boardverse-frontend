@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Settings = () => {
+const SettingsPage = () => {
   return (
     <div className="text-center mt-2 text-xl">Settings</div>
   )
 }
 
-export default Settings
+export default SettingsPage;
