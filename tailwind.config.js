@@ -14,6 +14,8 @@ module.exports = {
         foreground: "var(--foreground)",
         navBackground: "#233241",
         colorAdd: "#b447a6",
+        backgroundPanel: "#13072e",
+        backgroundPanelSec: "#1e103e",
       },
       fontSize: {
         navCustom: "0.875rem",

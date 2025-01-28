@@ -2,7 +2,7 @@ import React from 'react';
 
 const TermsOfServicePage = () => {
     return (
-        <div className="min-h-screen px-6 py-10">
+        <div className="bg-[#1e103e] min-h-screen px-6 py-10">
             <div className="container mx-auto max-w-4xl">
                 {/* Page Title */}
                 <h1 className="text-4xl font-semibold mb-6 text-pink-500">Terms of Service</h1>

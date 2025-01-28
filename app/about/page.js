@@ -2,7 +2,7 @@ import React from 'react';
 
 const AboutPage = () => {
     return (
-        <div className="bg-[#1A013F] text-gray-300 font-sans min-h-screen flex flex-col items-center px-4">
+        <div className="bg-[#1e103e] text-gray-300 font-sans min-h-screen flex flex-col items-center px-4">
             {/* Page Container */}
             <div className="max-w-6xl w-full text-center mt-12">
                 {/* Title */}
