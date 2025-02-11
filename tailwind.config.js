@@ -16,6 +16,7 @@ module.exports = {
         colorAdd: "#b447a6",
         backgroundPanel: "#13072e",
         backgroundPanelSec: "#1e103e",
+        backgroundPanelThird: "#330059",
       },
       fontSize: {
         navCustom: "0.875rem",

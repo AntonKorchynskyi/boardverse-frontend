@@ -42,7 +42,7 @@ const RegistrationPage = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen overflow-hidden">
+    <div className="flex items-center justify-center pt-8 overflow-hidden">
       <div className="w-full max-w-md bg-opacity-50 bg-gray-800 p-8 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold text-center text-white pb-6">
           Registration
@@ -52,7 +52,7 @@ const RegistrationPage = () => {
           {/* Username */}
           <div className="mb-4">
             <label
-              className="block text-pink-300 font-semibold mb-2"
+              className="block text-[#ad4ef1] font-semibold mb-2"
               htmlFor="username"
             >
               Your username:
@@ -71,7 +71,7 @@ const RegistrationPage = () => {
           {/* Email */}
           <div className="mb-4">
             <label
-              className="block text-pink-300 font-semibold mb-2"
+              className="block text-[#ad4ef1] font-semibold mb-2"
               htmlFor="email"
             >
               Email:
@@ -90,7 +90,7 @@ const RegistrationPage = () => {
           {/* Password */}
           <div className="mb-4">
             <label
-              className="block text-pink-300 font-semibold mb-2"
+              className="block text-[#ad4ef1] font-semibold mb-2"
               htmlFor="password"
             >
               Password:
@@ -107,10 +107,10 @@ const RegistrationPage = () => {
           </div>
 
           {/* Submit Button */}
-          <div className="pb-6">
+          <div className="pb-6 mt-14">
             <button
               type="submit"
-              className="w-full py-2 bg-pink-500 text-white font-bold rounded-lg hover:bg-pink-600 transition"
+              className="w-full py-2 bg-[#4a007f] text-white font-bold rounded-lg hover:bg-pink-600 transition"
             >
               Sign Up
             </button>
