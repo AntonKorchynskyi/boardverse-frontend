@@ -1,54 +1,20 @@
 'use client';
 
-import React, { useState } from "react";
+import React, { useActionState } from "react";
+import { register } from "@/app/registration/actions";
 
 const RegistrationPage = () => {
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [message, setMessage] = useState("");
 
-  const register = async (event) => {
-    event.preventDefault();
-
-    const body = {
-      userName,
-      userEmail,
-      userPassword,
-    };
-
-    try {
-      const response = await fetch(
-        "https://boardverse-backend.onrender.com/user/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessage(`Success: ${data.message}, User ID: ${data.userId}`);
-      } else {
-        setMessage(`Error: ${data.message || "Registration failed!"}`);
-      }
-    } catch (error) {
-      setMessage(`Error: ${error.message}`);
-    }
-  };
+  const [state, action, pending] = useActionState(register);
 
   return (
     <div className="flex items-center justify-center pt-8 overflow-hidden">
-      <div className="w-full max-w-md bg-opacity-50 bg-gray-800 p-8 rounded-lg shadow-lg">
+      <div className="w-full max-w-md bg-opacity-50 bg-gray-800 p-8 rounded-lg shadow-lg mb-4">
         <h1 className="text-3xl font-bold text-center text-white pb-6">
           Registration
         </h1>
 
-        <form onSubmit={register}>
+        <form action={action}>
           {/* Username */}
           <div className="mb-4">
             <label
@@ -60,12 +26,12 @@ const RegistrationPage = () => {
             <input
               id="username"
               type="text"
-              value={userName}
-              onChange={(e) => setUserName(e.target.value)}
+              name="username"
               className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
               placeholder="Enter your username"
               required
             />
+            {state?.errors?.username && <p className="mt-1 text-red-500">{state.errors.username}</p>}
           </div>
 
           {/* Email */}
@@ -79,12 +45,12 @@ const RegistrationPage = () => {
             <input
               id="email"
               type="email"
-              value={userEmail}
-              onChange={(e) => setUserEmail(e.target.value)}
+              name="email"
               className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
               placeholder="Enter your email"
               required
             />
+            {state?.errors?.email && <p className="mt-1 text-red-500">{state.errors.email}</p>}
           </div>
 
           {/* Password */}
@@ -98,12 +64,12 @@ const RegistrationPage = () => {
             <input
               id="password"
               type="password"
-              value={userPassword}
-              onChange={(e) => setUserPassword(e.target.value)}
+              name="password"
               className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
               placeholder="Enter your password"
               required
             />
+            {state?.errors?.password && <p className="mt-1 text-red-500">{state.errors.password}</p>}
           </div>
 
           {/* Submit Button */}
@@ -111,8 +77,9 @@ const RegistrationPage = () => {
             <button
               type="submit"
               className="w-full py-2 bg-[#4a007f] text-white font-bold rounded-lg hover:bg-pink-600 transition"
+              disabled={pending}
             >
-              Sign Up
+              {pending ? 'Submitting...' : 'Sign Up'}
             </button>
           </div>
 
@@ -124,10 +91,10 @@ const RegistrationPage = () => {
             </a>
           </p>
 
-          {/* Response Message */}
+          {/* Response Message
           {message && (
             <p className="text-center text-sm text-white mt-4">{message}</p>
-          )}
+          )} */}
         </form>
       </div>
     </div>
