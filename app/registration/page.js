@@ -1,11 +1,20 @@
-'use client';
+"use client";
 
-import React, { useActionState } from "react";
+import React, { useActionState, useState } from "react";
 import { register } from "@/app/registration/actions";
+import { EyeClosedIcon, EyeIcon } from "lucide-react";
 
 const RegistrationPage = () => {
-
   const [state, action, pending] = useActionState(register);
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+
+  // Track if the password is visible
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible((prevState) => !prevState);
+  };
 
   return (
     <div className="flex items-center justify-center pt-8 overflow-hidden">
@@ -19,67 +28,93 @@ const RegistrationPage = () => {
           <div className="mb-4">
             <label
               className="block text-[#ad4ef1] font-semibold mb-2"
-              htmlFor="username"
+              htmlFor="userName"
             >
               Your username:
             </label>
             <input
-              id="username"
+              id="userName"
               type="text"
-              name="username"
+              name="userName"
+              value={userName}
               className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
               placeholder="Enter your username"
               required
+              onChange={(e) => setUserName(e.target.value)}
             />
-            {state?.errors?.username && <p className="mt-1 text-red-500">{state.errors.username}</p>}
+            {state?.errors?.userName && (
+              <p className="mt-1 text-red-500">{state.errors.userName}</p>
+            )}
           </div>
 
           {/* Email */}
           <div className="mb-4">
             <label
               className="block text-[#ad4ef1] font-semibold mb-2"
-              htmlFor="email"
+              htmlFor="userEmail"
             >
               Email:
             </label>
             <input
-              id="email"
+              id="userEmail"
               type="email"
-              name="email"
+              name="userEmail"
+              value={userEmail}
               className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
               placeholder="Enter your email"
               required
+              onChange={(e) => setUserEmail(e.target.value)}
             />
-            {state?.errors?.email && <p className="mt-1 text-red-500">{state.errors.email}</p>}
+            {state?.errors?.userEmail && (
+              <p className="mt-1 text-red-500">{state.errors.userEmail}</p>
+            )}
           </div>
 
           {/* Password */}
           <div className="mb-4">
             <label
               className="block text-[#ad4ef1] font-semibold mb-2"
-              htmlFor="password"
+              htmlFor="userPassword"
             >
               Password:
             </label>
-            <input
-              id="password"
-              type="password"
-              name="password"
-              className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
-              placeholder="Enter your password"
-              required
-            />
-            {state?.errors?.password && <p className="mt-1 text-red-500">{state.errors.password}</p>}
+
+            <div className="relative">
+              <input
+                id="userPassword"
+                type={passwordVisible ? "text" : "password"}
+                name="userPassword"
+                className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+                placeholder="Enter your password"
+                required
+              />
+
+              {/* Toggle Button / Icon */}
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute right-3 top-[0.65rem] text-gray-500 hover:text-gray-700 transition"
+              >
+                {passwordVisible ? (
+                  <EyeIcon className="w-5 h-5" />
+                ) : (
+                  <EyeClosedIcon className="w-5 h-5" />
+                )}
+              </button>
+            </div>
+            {state?.errors?.userPassword && (
+              <p className="mt-1 text-red-500">{state.errors.userPassword}</p>
+            )}
           </div>
 
           {/* Submit Button */}
-          <div className="pb-6 mt-14">
+          <div className="pb-6 mt-10">
             <button
               type="submit"
-              className="w-full py-2 bg-[#4a007f] text-white font-bold rounded-lg hover:bg-pink-600 transition"
+              className="w-full py-2 bg-[#ad4ef1] text-white font-bold rounded-lg hover:bg-pink-600 transition"
               disabled={pending}
             >
-              {pending ? 'Submitting...' : 'Sign Up'}
+              {pending ? "Submitting..." : "Sign Up"}
             </button>
           </div>
 
@@ -90,11 +125,6 @@ const RegistrationPage = () => {
               Log in
             </a>
           </p>
-
-          {/* Response Message
-          {message && (
-            <p className="text-center text-sm text-white mt-4">{message}</p>
-          )} */}
         </form>
       </div>
     </div>

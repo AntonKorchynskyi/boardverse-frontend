@@ -5,9 +5,9 @@ import { SignupFormSchema } from "@/app/_lib/definitions";
 export async function register(state, formData) {
   // Validate form data using Zod
   const validationResult = SignupFormSchema.safeParse({
-    userName: formData.get("username"),
-    userEmail: formData.get("email"),
-    userPassword: formData.get("password"),
+    userName: formData.get("userName"),
+    userEmail: formData.get("userEmail"),
+    userPassword: formData.get("userPassword"),
   });
 
   if (!validationResult.success) {

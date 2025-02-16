@@ -1,50 +1,19 @@
 'use client';
 
-import React, { useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useActionState, useState } from "react";
+import { login } from "@/app/login/actions";
+import { EyeClosedIcon, EyeIcon } from "lucide-react";
 
 const LoginPage = () => {
+
+  const [state, action, pending] = useActionState(login);
   const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [message, setMessage] = useState("");
 
-  const router = useRouter(); // Use Next.js router
+  // Track if the password is visible
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const login = async (event) => {
-    event.preventDefault();
-
-    const body = {
-      userEmail,
-      userPassword,
-    };
-
-    try {
-      const response = await fetch(
-        "https://boardverse-backend.onrender.com/user/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(body),
-        }
-      );
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setMessage(`Success: ${data.message}, Welcome ${data.userName}!`);
-
-        // Redirect to the home page after a short delay
-        setTimeout(() => {
-          router.push("/"); // Redirects to the home page
-        }, 2000);
-      } else {
-        setMessage(`Error: ${data.message || "Login failed!"}`);
-      }
-    } catch (error) {
-      setMessage(`Error: ${error.message}`);
-    }
+  const togglePasswordVisibility = () => {
+    setPasswordVisible((prevState) => !prevState);
   };
 
   return (
@@ -52,67 +21,83 @@ const LoginPage = () => {
       <div className="w-full max-w-md bg-opacity-50 bg-gray-800 p-8 rounded-lg shadow-lg">
         <h1 className="text-3xl font-bold text-center text-white mb-6">Login</h1>
 
-        <form onSubmit={login}>
+        <form action={action}>
           {/* Email */}
           <div className="mb-4">
             <label
-              className="block text-pink-300 font-semibold mb-2"
-              htmlFor="email"
+              className="block text-[#ad4ef1] font-semibold mb-2"
+              htmlFor="userEmail"
             >
               Your email:
             </label>
             <input
-              id="email"
+              id="userEmail"
               type="email"
+              name="userEmail"
               value={userEmail}
-              onChange={(e) => setUserEmail(e.target.value)}
               className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
               placeholder="Enter your email"
               required
+              onChange={(e) => setUserEmail(e.target.value)}
             />
+            {state?.errors?.userEmail && <p className="mt-1 text-red-500">{state.errors.userEmail}</p>}
           </div>
 
           {/* Password */}
           <div className="mb-4">
             <label
-              className="block text-pink-300 font-semibold mb-2"
-              htmlFor="password"
+              className="block text-[#ad4ef1] font-semibold mb-2"
+              htmlFor="userPassword"
             >
               Password:
             </label>
-            <input
-              id="password"
-              type="password"
-              value={userPassword}
-              onChange={(e) => setUserPassword(e.target.value)}
-              className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
-              placeholder="Enter your password"
-              required
-            />
+
+            <div className="relative">
+              <input
+                id="userPassword"
+                type={passwordVisible ? "text" : "password"}
+                name="userPassword"
+                className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+                placeholder="Enter your password"
+                required
+              />
+
+              {/* Toggle Button / Icon */}
+              <button
+                type="button"
+                onClick={togglePasswordVisibility}
+                className="absolute right-3 top-[0.65rem] text-gray-500 hover:text-gray-700 transition"
+              >
+                {passwordVisible ? (
+                  <EyeIcon className="w-5 h-5" />
+                ) : (
+                  <EyeClosedIcon className="w-5 h-5" />
+                )}
+              </button>
+            </div>
+            {state?.errors?.userPassword && (
+              <p className="mt-1 text-red-500">{state.errors.userPassword}</p>
+            )}
           </div>
 
           {/* Remember Me */}
           <div className="mb-4 flex items-center">
             <input id="remember" type="checkbox" className="mr-2" />
-            <label htmlFor="remember" className="text-pink-300">
+            <label htmlFor="remember" className="text-[#ad4ef1]">
               Remember me
             </label>
           </div>
 
           {/* Submit Button */}
-          <div className="pb-6">
+          <div className="pb-6 mt-6">
             <button
               type="submit"
-              className="w-full py-2 bg-pink-500 text-white font-bold rounded-lg hover:bg-pink-600 transition"
+              disabled={pending}
+              className="w-full py-2 bg-[#ad4ef1] text-white font-bold rounded-lg hover:bg-pink-600 transition"
             >
-              Sign In
+              {pending ? 'Submitting...' : 'Sign In'}
             </button>
           </div>
-
-          {/* Response Message */}
-          {message && (
-            <p className="text-center text-sm text-white mt-4">{message}</p>
-          )}
 
           {/* Link to Register */}
           <p className="text-center text-sm text-white">
