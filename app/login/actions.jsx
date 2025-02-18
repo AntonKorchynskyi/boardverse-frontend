@@ -1,9 +1,12 @@
 "use server";
 
 import { LoginFormSchema } from "@/app/_lib/definitions";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import { jwtDecode } from "jwt-decode";
+import { NextResponse } from "next/server";
 
 export async function login(state, formData) {
-
   // Validate form data using Zod
   const validationResult = LoginFormSchema.safeParse({
     userEmail: formData.get("userEmail"),
@@ -12,43 +15,64 @@ export async function login(state, formData) {
 
   if (!validationResult.success) {
     console.log("Validation failed, skipping DB update.");
-    
-    
-    console.log(validationResult);
-    console.log(validationResult.error);
-    console.log(validationResult.error.flatten());
-    console.log(validationResult.error.flatten().fieldErrors);
-    
-    
     return { errors: validationResult.error.flatten().fieldErrors };
   }
 
-  const user = validationResult.data;
-
-  console.log(user);
-
   try {
+    const userCreds = validationResult.data;
     const response = await fetch(
-      "https://boardverse-backend.onrender.com/user/login",
+      "https://boardverse-backend.onrender.com/auth/login",
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(userCreds),
       }
     );
 
     const data = await response.json();
 
-    if (response.ok) {
-      console.log(`Success: ${data.message}, Welcome ${data.userName}!`);
-
-    } else {
-      console.log(`Error: ${data.message || "Login failed!"}`);
+    if (!response.ok) {
+      console.log(`Backend error: ${data.message || "Login failed!"}`);
+      return { errors: { general: [data.message || "Login failed!"] } };
     }
 
+    // Suppose your backend returns a token
+    const token = data.token;
+    if (!token) {
+      console.log("No token returned from backend.");
+      return { errors: { general: ["No token provided!"] } };
+    }
+
+    const decoded = jwtDecode(token);
+    // decoded.exp should be a Unix timestamp in seconds.
+    const currentTime = Math.floor(Date.now() / 1000); // current time in seconds
+    const maxAge = decoded.exp - currentTime; // remaining lifetime in seconds
+
+    // Set HTTP-only cookie using next/headers (await the cookies API)
+    const cookieStore = await cookies();
+    cookieStore.set("access_token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      path: "/",
+      maxAge,
+    });
+
+    // // Construct an absolute URL for redirection.
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    const redirectUrl = new URL("/profile", baseUrl);
+
+    // console.log(redirectUrl);
+    
+
+    // Perform a redirect using next/navigation
+    // Redirect to /profile. IMPORTANT: Return the redirect.
+    // window.location.href = "/profile";
+    console.log(redirectUrl.toString());
+    
+    return redirect(redirectUrl.toString());
+
   } catch (error) {
-    console.log(`Error: ${error.message}`);
+    console.log(`Login error: ${error}`);
+    return { errors: { general: ["Unexpected error during login"] } };
   }
 }

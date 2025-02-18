@@ -1,15 +1,22 @@
 import Image from "next/image";
+import { cookies } from "next/headers";
+import { notFound } from "next/navigation";
 
-// 1️⃣ Fetch Profile Data (Server-Side)
+// Fetch Profile Data (Server-Side) with token-based auth
 async function getUserProfile() {
+  // Retrieve the token from cookies
+  const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
+
   try {
-    // 'cache: "no-store"' ensures a fresh call on every request
     const res = await fetch(
-      "https://boardverse-backend.onrender.com/user/profile/1609a174-c314-487a-8f8c-0ee6ea043385",
+      "https://boardverse-backend.onrender.com/user/profile",
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          // Pass the token so the backend can identify the user
+          Authorization: `Bearer ${token}`,
         },
         cache: "no-store",
       }
@@ -20,28 +27,32 @@ async function getUserProfile() {
     }
 
     const data = await res.json();
-    return data; // e.g., { userName, userDesc, userLevel, userStatus, ... }
+    return data; // Expected data: { userName, userDesc, userLevel, userStatus, ... }
   } catch (error) {
     console.error("Error fetching user profile:", error);
     return null;
   }
 }
 
-// 2️⃣ Fetch User Stats (Server-Side)
+// Fetch User Stats (Server-Side) with token-based auth
 async function getUserStats() {
+  // Retrieve the token from cookies
+  const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
+
   try {
     const res = await fetch(
-      "https://boardverse-backend.onrender.com/stats/stats/1609a174-c314-487a-8f8c-0ee6ea043385",
+      "https://boardverse-backend.onrender.com/stats/stats",
       {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          // Pass the token so the backend can authenticate the request
+          Authorization: `Bearer ${token}`,
         },
         cache: "no-store",
       }
-    ); 
-    // Expected JSON response shape, for example: 
-    // { "totalGamesPlayed": number, "totalWins": number, "totalLosses": number, "rankScore": number }
+    );
 
     if (!res.ok) {
       throw new Error(`Request failed with status ${res.status}`);
@@ -55,7 +66,7 @@ async function getUserStats() {
   }
 }
 
-// 3️⃣ A Reusable Card Component
+// A Reusable Card Component for Recent Activity
 function GameActivityCard({ imageUrl, title, hours }) {
   return (
     <div className="flex items-center bg-[#4a007f] rounded-lg p-4">
@@ -79,30 +90,40 @@ function GameActivityCard({ imageUrl, title, hours }) {
   );
 }
 
-// 4️⃣ Main Profile Page as a Server Component
+// Main Profile Page as a Server Component
 export default async function ProfilePage() {
-  // Fetch data from both endpoints in parallel
+
+  const cookieStore = await cookies();
+  const token = cookieStore.get("access_token")?.value;
+
+  if (!token) {
+    notFound();
+  }
+
+  // Fetch profile data and stats in parallel
   const [profileData, statsData] = await Promise.all([
     getUserProfile(),
     getUserStats(),
   ]);
 
-  // If there's an error or null response in either fetch, show an error
+  // If either fetch fails, display an error message
   if (!profileData || !statsData) {
     return (
       <div className="p-8 bg-backgroundPanelSec min-h-screen">
         <h1 className="text-2xl text-red-500">Error</h1>
-        <p className="text-red-400">Unable to fetch profile or stats data.</p>
+        <p className="text-red-400">
+          Unable to fetch profile or stats data.
+        </p>
       </div>
     );
   }
 
-  // Destructure the profile fields
+  // Destructure the profile fields from the data returned by your backend
   const {
     userName = "Unnamed User",
     userDesc = null,
     userLevel = 1,
-    userStatus = "Offline",
+    userStatus = "Online",
   } = profileData;
 
   // Destructure the stats fields
@@ -113,21 +134,22 @@ export default async function ProfilePage() {
     rankScore = 0,
   } = statsData;
 
-  // Optionally, compute winRate from stats if needed (uncomment below if desired):
-  const winRate = totalGamesPlayed > 0 
-    ? ((totalWins / totalGamesPlayed) * 100).toFixed(2) + "%"
-    : "0%";
+  // Compute win rate if applicable
+  const winRate =
+    totalGamesPlayed > 0
+      ? ((totalWins / totalGamesPlayed) * 100).toFixed(2) + "%"
+      : "0%";
 
   return (
     <div className="p-8 bg-backgroundPanelSec min-h-screen">
       {/* ──────────────── Upper Section ──────────────── */}
       <div className="flex mb-6 items-center">
-        {/* Header Section (user picture and nickname) */}
+        {/* Header Section (user picture and information) */}
         <div className="flex items-center w-2/3">
           {/* User Avatar */}
           <div className="bg-backgroundPanelThird mr-6 rounded-md p-2 h-full">
             <Image
-              src="/basic-profile-pic.png" // Replace with dynamic avatar URL if available
+              src="/basic-profile-pic.png"
               alt="User Avatar"
               width={80}
               height={80}
@@ -180,7 +202,7 @@ export default async function ProfilePage() {
                 {rankScore}
               </span>
               <Image
-                src="/achievement-award-medal-icon.svg" // Replace with your medal icon URL
+                src="/achievement-award-medal-icon.svg"
                 alt="Medal Icon"
                 width={24}
                 height={24}
@@ -207,7 +229,9 @@ export default async function ProfilePage() {
         <div className="flex flex-col w-2/3 bg-backgroundPanelThird">
           {/* Header */}
           <div className="flex justify-between items-center bg-[#1a0d37] p-4">
-            <h2 className="text-2xl font-bold text-white">Recent Activity</h2>
+            <h2 className="text-2xl font-bold text-white">
+              Recent Activity
+            </h2>
             <p className="text-gray-400 text-xl">12 hrs</p>
           </div>
 
@@ -239,22 +263,17 @@ export default async function ProfilePage() {
               <h3>Total Games Played</h3>
               <p className="text-gray-400">{totalGamesPlayed}</p>
             </div>
-
             <div className="flex justify-between text-2xl mb-6">
               <h3>Total Wins</h3>
               <p className="text-gray-400">{totalWins}</p>
             </div>
-
             <div className="flex justify-between text-2xl mb-6">
               <h3>Total Losses</h3>
               <p className="text-gray-400">{totalLosses}</p>
             </div>
-
             <div className="flex justify-between text-2xl">
               <h3>Win Rate</h3>
-              <p className="text-gray-400">
-                {winRate}
-              </p>
+              <p className="text-gray-400">{winRate}</p>
             </div>
           </div>
         </div>
