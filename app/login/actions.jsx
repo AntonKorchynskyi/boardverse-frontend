@@ -4,10 +4,10 @@ import { LoginFormSchema } from "@/app/_lib/definitions";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
-import { NextResponse } from "next/server";
+// import { NextResponse } from "next/server";
 
 export async function login(state, formData) {
-  // Validate form data using Zod
+  // validate user-inputted form data using Zod
   const validationResult = LoginFormSchema.safeParse({
     userEmail: formData.get("userEmail"),
     userPassword: formData.get("userPassword"),
@@ -18,6 +18,7 @@ export async function login(state, formData) {
     return { errors: validationResult.error.flatten().fieldErrors };
   }
 
+  // try to login user
   try {
     const userCreds = validationResult.data;
     const response = await fetch(
@@ -36,30 +37,33 @@ export async function login(state, formData) {
       return { errors: { general: [data.message || "Login failed!"] } };
     }
 
-    // Suppose your backend returns a token
+    // backend returns a token
     const token = data.token;
     if (!token) {
       console.log("No token returned from backend.");
       return { errors: { general: ["No token provided!"] } };
     }
 
+    // decode token to extract the expiration date
     const decoded = jwtDecode(token);
     // decoded.exp should be a Unix timestamp in seconds.
     const currentTime = Math.floor(Date.now() / 1000); // current time in seconds
     const maxAge = decoded.exp - currentTime; // remaining lifetime in seconds
 
-    // Set HTTP-only cookie using next/headers (await the cookies API)
-    const cookieStore = await cookies();
+    // set HTTP-only cookie using next/headers (await the cookies API)
+    const cookieStore = await cookies(); // get current cookies
+    // add new cookie
     cookieStore.set("access_token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       path: "/",
       maxAge,
-    });
+    }); 
 
-    // // Construct an absolute URL for redirection.
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    const redirectUrl = new URL("/profile", baseUrl);
+    // TODO: fix the redirection
+    // construct an absolute URL for redirection.
+    // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+    // const redirectUrl = new URL("/profile", baseUrl);
 
     // console.log(redirectUrl);
     

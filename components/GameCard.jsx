@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowRightCircle } from "lucide-react"; // Importing the filled arrow icon from React Lucide
+import { ArrowRightCircle } from "lucide-react";
 import Link from "next/link";
 
 export default function GameCard({ gameName, gameDescription, gameUrl, gameImageUrl }) {
-  const isAvailable = gameName === "Take 5"; // Condition to check availability
+  const isAvailable = gameName === "Take 5"; // condition to check availability
 
   return (
     <div className="bg-backgroundPanelThird rounded-lg shadow-lg p-4">

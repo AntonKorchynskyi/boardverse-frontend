@@ -4,13 +4,17 @@ const PrivacyPolicyPage = () => {
   return (
     <div className="bg-[#1e103e] py-10 px-6">
       <div className="container mx-auto max-w-5xl">
+        
         <h1 className="text-3xl font-bold text-pink-500 mb-6">Privacy Policy</h1>
+        
         <p className="text-gray-300 mb-4">
           At <strong>BoardVerse</strong>, your privacy is important to us. This Privacy Policy outlines how we collect, use, and safeguard your information when you use our platform. By using BoardVerse, you agree to the practices described in this policy.
         </p>
 
         <h2 className="text-2xl font-semibold text-pink-500 mt-6 mb-4">1. Information We Collect</h2>
+        
         <p className="text-gray-300 mb-2">We collect the following types of information:</p>
+        
         <ul className="list-disc pl-6 text-gray-300 space-y-2">
           <li>
             <strong>Personal Information:</strong> Information such as your name, email address, and username, which you provide during account registration.

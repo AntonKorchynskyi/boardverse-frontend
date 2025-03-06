@@ -1,11 +1,10 @@
-// app/api/auth/logout/route.js
 import { NextResponse } from "next/server";
 
 export async function POST(request) {
-  // Get the token from the cookies (if needed for the backend call)
+  // get the token from the cookies
   const token = request.cookies.get("access_token")?.value;
 
-  // If there's a token, call your backend to delete/invalidate it
+  // if there's a token, call backend to delete/invalidate it
   if (token) {
     try {
       await fetch("https://boardverse-backend.onrender.com/auth/logout", {
@@ -15,18 +14,18 @@ export async function POST(request) {
           Authorization: `Bearer ${token}`,
         },
       });
+
+      console.log("Token successfully deleted");
+      
     } catch (error) {
       console.error("Error invalidating token on backend:", error);
-      // Optionally handle errors (log, retry, etc.)
     }
   }
 
-  
-
-  // Create a redirect response to home (or login) page
+  // create a redirect response to home page
   const response = NextResponse.redirect(new URL("/", request.url));
 
-  // Clear the access_token cookie by setting it to an empty string and expiring it
+  // clear the access_token cookie by setting it to an empty string and expiring it
   response.cookies.set("access_token", "", {
     path: "/",
     expires: new Date(0),

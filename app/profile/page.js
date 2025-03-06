@@ -1,13 +1,15 @@
 import Image from "next/image";
 import { cookies } from "next/headers";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import Link from "next/link";
 
-// Fetch Profile Data (Server-Side) with token-based auth
+// fetch Profile Data (Server-Side) with token-based auth
 async function getUserProfile() {
-  // Retrieve the token from cookies
+  // retrieve the token from cookies
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
 
+  // retrieve user profile
   try {
     const res = await fetch(
       "https://boardverse-backend.onrender.com/user/profile",
@@ -27,19 +29,21 @@ async function getUserProfile() {
     }
 
     const data = await res.json();
-    return data; // Expected data: { userName, userDesc, userLevel, userStatus, ... }
+    return data; // Expected data: { userName, userProfileDescription, userLevel, userStatus, ... }
   } catch (error) {
     console.error("Error fetching user profile:", error);
     return null;
   }
 }
 
-// Fetch User Stats (Server-Side) with token-based auth
+// fetch User Stats (Server-Side) with token-based auth
 async function getUserStats() {
-  // Retrieve the token from cookies
+  
+  // retrieve the token from cookies
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
 
+  // retrieve user stats
   try {
     const res = await fetch(
       "https://boardverse-backend.onrender.com/stats/stats",
@@ -47,7 +51,7 @@ async function getUserStats() {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
-          // Pass the token so the backend can authenticate the request
+          // pass the token so the backend can authenticate the request
           Authorization: `Bearer ${token}`,
         },
         cache: "no-store",
@@ -66,7 +70,7 @@ async function getUserStats() {
   }
 }
 
-// A Reusable Card Component for Recent Activity
+// a reusable Card Component for recent activity
 function GameActivityCard({ imageUrl, title, hours }) {
   return (
     <div className="flex items-center bg-[#4a007f] rounded-lg p-4">
@@ -90,7 +94,7 @@ function GameActivityCard({ imageUrl, title, hours }) {
   );
 }
 
-// Main Profile Page as a Server Component
+// Main Profile Page
 export default async function ProfilePage() {
 
   const cookieStore = await cookies();
@@ -100,13 +104,13 @@ export default async function ProfilePage() {
     notFound();
   }
 
-  // Fetch profile data and stats in parallel
+  // fetch profile data and stats in parallel
   const [profileData, statsData] = await Promise.all([
     getUserProfile(),
     getUserStats(),
   ]);
 
-  // If either fetch fails, display an error message
+  // if either fetch fails, display an error message
   if (!profileData || !statsData) {
     return (
       <div className="p-8 bg-backgroundPanelSec min-h-screen">
@@ -118,15 +122,15 @@ export default async function ProfilePage() {
     );
   }
 
-  // Destructure the profile fields from the data returned by your backend
+  // destructure the profile fields from the data returned by the backend and assign some default values in case values are missing in backend response
   const {
     userName = "Unnamed User",
-    userDesc = null,
+    userProfileDescription = null,
     userLevel = 1,
     userStatus = "Online",
   } = profileData;
 
-  // Destructure the stats fields
+  // destructure the stats fields
   const {
     totalGamesPlayed = 0,
     totalWins = 0,
@@ -134,7 +138,7 @@ export default async function ProfilePage() {
     rankScore = 0,
   } = statsData;
 
-  // Compute win rate if applicable
+  // compute win rate
   const winRate =
     totalGamesPlayed > 0
       ? ((totalWins / totalGamesPlayed) * 100).toFixed(2) + "%"
@@ -142,6 +146,7 @@ export default async function ProfilePage() {
 
   return (
     <div className="p-8 bg-backgroundPanelSec min-h-screen">
+      
       {/* ──────────────── Upper Section ──────────────── */}
       <div className="flex mb-6 items-center">
         {/* Header Section (user picture and information) */}
@@ -179,7 +184,7 @@ export default async function ProfilePage() {
 
             {/* User Description */}
             <p className="text-gray-300 text-lg mt-4 max-w-lg leading-6 bg-backgroundPanelThird p-4 rounded-md flex-grow w-full">
-              {userDesc}
+              {userProfileDescription}
             </p>
           </div>
         </div>
@@ -213,12 +218,13 @@ export default async function ProfilePage() {
 
           {/* Action Buttons */}
           <div className="flex gap-4">
-            <button className="px-4 py-2 bg-white text-[#330059] font-medium rounded-lg hover:bg-gray-200">
-              Edit Profile
-            </button>
-            <button className="px-4 py-2 bg-white text-[#330059] font-medium rounded-lg hover:bg-gray-200">
+            <Link href="/profile/edit-profile" className="px-4 py-2 bg-white text-[#330059] font-medium rounded-lg hover:bg-gray-200">
+                Edit Profile
+            </Link>
+
+            <Link href="/" className="px-4 py-2 bg-white text-[#330059] font-medium rounded-lg hover:bg-gray-200">
               Games History
-            </button>
+            </Link>
           </div>
         </div>
       </div>

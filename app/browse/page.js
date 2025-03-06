@@ -1,6 +1,7 @@
 import GameCard from '@/components/GameCard';
 import React from 'react'
 
+// list of all games
 const popularGames = [
   { gameName: "Take 5", gameDescription: "A fast-paced card game of risk and strategy. Avoid collecting penalty cards while planning your moves wisely!", gameUrl: "take-5", gameImageUrl: "/take-5-game.jpg"},
   { gameName: "Scout", gameDescription: "A unique ladder-climbing game where strategy meets creativity. Outsmart opponents by cleverly playing or rearranging your hand!", gameUrl: "scout", gameImageUrl: "/scout-game.png"},

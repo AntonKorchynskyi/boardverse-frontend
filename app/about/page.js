@@ -5,21 +5,21 @@ const AboutPage = () => {
         <div className="bg-[#1e103e] text-gray-300 font-sans min-h-screen flex flex-col items-center px-4">
             {/* Page Container */}
             <div className="max-w-6xl w-full text-center mt-12">
-                {/* Title */}
+                
                 <h1 className="text-4xl font-bold text-pink-500 mb-8">About BoardVerse</h1>
-                {/* Introduction */}
+
                 <p className="text-lg leading-relaxed mb-6">
                     Welcome to <strong>BoardVerse</strong>, the ultimate hub for digital board game enthusiasts! Our mission is to bring the joy of traditional board gaming into the online space, blending modern interactivity with classic gameplay.
                 </p>
                 <hr className="border-gray-700 my-6" />
-                {/* Mission Section */}
+                
                 <div className="mb-8">
                     <h2 className="text-2xl font-semibold text-pink-500 mb-4">Our Mission</h2>
                     <p className="text-base leading-relaxed">
                         At BoardVerse, we strive to create a platform that delivers engaging, user-friendly experiences for players of all skill levels. Whether you're a casual player or a seasoned strategist, our goal is to make gaming accessible and fun.
                     </p>
                 </div>
-                {/* Features Section */}
+
                 <div className="mb-8">
                     <h2 className="text-2xl font-semibold text-pink-500 mb-4">Key Features</h2>
                     <ul className="list-disc list-inside space-y-2 text-left mx-auto max-w-3xl">
@@ -29,7 +29,7 @@ const AboutPage = () => {
                         <li>Synthwave-inspired design to reduce eye strain and create an immersive atmosphere.</li>
                     </ul>
                 </div>
-                {/* Footer */}
+                
                 <div className="mt-12">
                     <p className="text-sm text-gray-400">
                         Thank you for exploring BoardVerse! We hope you enjoy the journey into the world of online board games.

@@ -9,7 +9,7 @@ const LoginPage = () => {
   const [state, action, pending] = useActionState(login);
   const [userEmail, setUserEmail] = useState("");
 
-  // Track if the password is visible
+  // track if the password is visible
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -78,14 +78,6 @@ const LoginPage = () => {
             {state?.errors?.userPassword && (
               <p className="mt-1 text-red-500">{state.errors.userPassword}</p>
             )}
-          </div>
-
-          {/* Remember Me */}
-          <div className="mb-4 flex items-center">
-            <input id="remember" type="checkbox" className="mr-2" />
-            <label htmlFor="remember" className="text-[#ad4ef1]">
-              Remember me
-            </label>
           </div>
 
           {/* Submit Button */}

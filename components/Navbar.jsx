@@ -5,15 +5,15 @@ import { cookies } from "next/headers";
 import { ArrowRight } from "lucide-react";
 import LogoutButton from "@/components/LogoutButton";
 
-// Force the component to be dynamic (no caching)
+// force the component to be dynamic (no caching)
 export const dynamic = "force-dynamic";
 
 export default async function Navbar() {
-  // Read cookies server-side
+  // read cookies server-side
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
 
-  // If token exists, user is logged in
+  // if token exists, user is logged in
   const isLoggedIn = !!token;
 
   return (

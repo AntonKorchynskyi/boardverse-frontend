@@ -9,7 +9,7 @@ const RegistrationPage = () => {
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
-  // Track if the password is visible
+  // track if the password is visible
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -18,7 +18,9 @@ const RegistrationPage = () => {
 
   return (
     <div className="flex items-center justify-center pt-8 overflow-hidden">
+      
       <div className="w-full max-w-md bg-opacity-50 bg-gray-800 p-8 rounded-lg shadow-lg mb-4">
+        
         <h1 className="text-3xl font-bold text-center text-white pb-6">
           Registration
         </h1>

@@ -3,7 +3,7 @@
 import { SignupFormSchema } from "@/app/_lib/definitions";
 
 export async function register(state, formData) {
-  // Validate form data using Zod
+  // validate form data using Zod
   const validationResult = SignupFormSchema.safeParse({
     userName: formData.get("userName"),
     userEmail: formData.get("userEmail"),
@@ -19,7 +19,7 @@ export async function register(state, formData) {
 
   console.log(user);
 
-  // Normally, you'd save the user to the database here
+  // send user info to backend
   try {
     const response = await fetch(
       "https://boardverse-backend.onrender.com/user/register",
