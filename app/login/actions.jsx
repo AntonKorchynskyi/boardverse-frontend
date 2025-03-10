@@ -58,24 +58,15 @@ export async function login(state, formData) {
       secure: process.env.NODE_ENV === "production",
       path: "/",
       maxAge,
-    }); 
+    });
 
-    // TODO: fix the redirection
-    // construct an absolute URL for redirection.
-    // const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
-    // const redirectUrl = new URL("/profile", baseUrl);
-
-    // console.log(redirectUrl);
-    
-
-    // Perform a redirect using next/navigation
-    // Redirect to /profile. IMPORTANT: Return the redirect.
-    // window.location.href = "/profile";
-    console.log(redirectUrl.toString());
-    
-    return redirect(redirectUrl.toString());
+    redirect("/profile");
 
   } catch (error) {
+    // the redirect exception, need to rethrow it to allow for redirect (catching it breaks the action).
+    if (error instanceof Error && error.message === "NEXT_REDIRECT") {
+      throw error;
+    }
     console.log(`Login error: ${error}`);
     return { errors: { general: ["Unexpected error during login"] } };
   }

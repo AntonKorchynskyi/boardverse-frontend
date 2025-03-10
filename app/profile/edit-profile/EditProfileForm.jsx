@@ -56,10 +56,10 @@ export default function EditProfileForm({ initialData }) {
               id="userDesc"
               name="userProfileDescription"
               value={userProfileDescription}
-              className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+              className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 max-h-[8rem]"
               placeholder="Enter your profile description"
-              required
               onChange={(e) => setUserProfileDescription(e.target.value)}
+              // maxLength="100"
             />
             {state?.errors?.userProfileDescription && (
               <p className="mt-1 text-red-500">

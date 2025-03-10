@@ -1,9 +1,10 @@
 "use server";
 
 import { SignupFormSchema } from "@/app/_lib/definitions";
+import { redirect } from "next/navigation";
 
 export async function register(state, formData) {
-  // validate form data using Zod
+  // Validate form data using Zod
   const validationResult = SignupFormSchema.safeParse({
     userName: formData.get("userName"),
     userEmail: formData.get("userEmail"),
@@ -12,14 +13,14 @@ export async function register(state, formData) {
 
   if (!validationResult.success) {
     console.log("Validation failed, skipping DB update.");
-    return { errors: validationResult.error.flatten().fieldErrors, };
+    return { errors: validationResult.error.flatten().fieldErrors };
   }
 
-  const user = validationResult.data
+  const user = validationResult.data;
 
   console.log(user);
 
-  // send user info to backend
+  // Send user info to backend
   try {
     const response = await fetch(
       "https://boardverse-backend.onrender.com/user/register",
@@ -37,9 +38,11 @@ export async function register(state, formData) {
     if (response.ok) {
       console.log(`Success: ${data.message}, User ID: ${data.userId}`);
     } else {
-      console.log(`Error: ${data.message || "Registration failed!"}`);
+      return { errors: { general: [data.message || "Registration failed!"] } };
     }
   } catch (error) {
-    console.log(`Error: ${error.message}`);
+    return { errors: { general: [error.message] } };
   }
+
+  redirect("/login");
 }

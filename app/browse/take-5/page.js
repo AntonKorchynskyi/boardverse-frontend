@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Guide from "./Guide";
 
 const Take5 = () => {
   const [selectedTab, setSelectedTab] = useState("");
@@ -8,6 +9,7 @@ const Take5 = () => {
   return (
     <>
       <div className="bg-yellow-500 w-full h-72 mt-8"></div>
+
       <div className="p-8 bg-backgroundPanelSec min-h-screen w-11/12 m-auto">
         <div className="bg-[#4c0080] py-4">
           <div className="flex justify-around items-center gap-8 text-white font-medium">
@@ -49,6 +51,14 @@ const Take5 = () => {
             </button>
           </div>
         </div>
+            
+        <div className="mt-8 p-4">
+          {selectedTab === "host" && <h1>hello, host</h1>}
+          {selectedTab === "join" && <h1>hello, join</h1>}
+          {selectedTab === "leaderboard" && <h1>hello, leaderboard</h1>}
+          {selectedTab === "guide" && <Guide/>}
+        </div>    
+            
       </div>
     </>
   );

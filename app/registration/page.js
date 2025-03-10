@@ -1,15 +1,14 @@
 "use client";
 
-import React, { useActionState, useState } from "react";
+import React, { useState } from "react";
 import { register } from "@/app/registration/actions";
+import { useActionState } from "react"; // Assuming you're using this hook from Next.js or your library.
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
 
 const RegistrationPage = () => {
   const [state, action, pending] = useActionState(register);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
-
-  // track if the password is visible
   const [passwordVisible, setPasswordVisible] = useState(false);
 
   const togglePasswordVisibility = () => {
@@ -18,9 +17,7 @@ const RegistrationPage = () => {
 
   return (
     <div className="flex items-center justify-center pt-8 overflow-hidden">
-      
       <div className="w-full max-w-md bg-opacity-50 bg-gray-800 p-8 rounded-lg shadow-lg mb-4">
-        
         <h1 className="text-3xl font-bold text-center text-white pb-6">
           Registration
         </h1>
@@ -45,7 +42,9 @@ const RegistrationPage = () => {
               onChange={(e) => setUserName(e.target.value)}
             />
             {state?.errors?.userName && (
-              <p className="mt-1 text-red-500">{state.errors.userName}</p>
+              <p className="mt-1 text-red-500">
+                {state.errors.userName.join(", ")}
+              </p>
             )}
           </div>
 
@@ -68,7 +67,9 @@ const RegistrationPage = () => {
               onChange={(e) => setUserEmail(e.target.value)}
             />
             {state?.errors?.userEmail && (
-              <p className="mt-1 text-red-500">{state.errors.userEmail}</p>
+              <p className="mt-1 text-red-500">
+                {state.errors.userEmail.join(", ")}
+              </p>
             )}
           </div>
 
@@ -105,7 +106,9 @@ const RegistrationPage = () => {
               </button>
             </div>
             {state?.errors?.userPassword && (
-              <p className="mt-1 text-red-500">{state.errors.userPassword}</p>
+              <p className="mt-1 text-red-500">
+                {state.errors.userPassword.join(", ")}
+              </p>
             )}
           </div>
 
@@ -119,6 +122,15 @@ const RegistrationPage = () => {
               {pending ? "Submitting..." : "Sign Up"}
             </button>
           </div>
+
+          {/* General Error Output */}
+          {state?.errors?.general && (
+            <div className="mt-4 text-red-500">
+              {state.errors.general.map((err, i) => (
+                <p key={i}>{err}</p>
+              ))}
+            </div>
+          )}
 
           {/* Link to Login */}
           <p className="text-center text-sm text-white">
