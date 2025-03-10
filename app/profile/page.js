@@ -183,7 +183,7 @@ export default async function ProfilePage() {
             </div>
 
             {/* User Description */}
-            <p className="text-gray-300 text-lg mt-4 max-w-lg leading-6 bg-backgroundPanelThird p-4 rounded-md flex-grow w-full max-h-[7rem] overflow-auto break-words">
+            <p className="text-gray-300 text-lg mt-4 leading-6 bg-backgroundPanelThird p-4 rounded-md flex-grow max-h-[7rem] overflow-auto break-words max-w-lg w-full">
               {userProfileDescription}
             </p>
           </div>
