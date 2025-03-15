@@ -1,11 +1,10 @@
-'use client';
+"use client";
 
 import React, { useActionState, useState } from "react";
 import { login } from "@/app/login/actions";
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
 
 const LoginPage = () => {
-
   const [state, action, pending] = useActionState(login);
   const [userEmail, setUserEmail] = useState("");
 
@@ -19,7 +18,9 @@ const LoginPage = () => {
   return (
     <div className="flex items-center justify-center pt-8 overflow-hidden">
       <div className="w-full max-w-md bg-opacity-50 bg-gray-800 p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-center text-white mb-6">Login</h1>
+        <h1 className="text-3xl font-bold text-center text-white mb-6">
+          Login
+        </h1>
 
         <form action={action}>
           {/* Email */}
@@ -40,7 +41,11 @@ const LoginPage = () => {
               required
               onChange={(e) => setUserEmail(e.target.value)}
             />
-            {state?.errors?.userEmail && <p className="mt-1 text-red-500">{state.errors.userEmail}</p>}
+            {state?.errors?.userEmail && (
+              <p className="mt-1 text-red-500">
+                {state.errors.userEmail.join(", ")}
+              </p>
+            )}
           </div>
 
           {/* Password */}
@@ -76,7 +81,9 @@ const LoginPage = () => {
               </button>
             </div>
             {state?.errors?.userPassword && (
-              <p className="mt-1 text-red-500">{state.errors.userPassword}</p>
+              <p className="mt-1 text-red-500">
+                {state.errors.userPassword.join(", ")}
+              </p>
             )}
           </div>
 
@@ -87,9 +94,18 @@ const LoginPage = () => {
               disabled={pending}
               className="w-full py-2 bg-[#ad4ef1] text-white font-bold rounded-lg hover:bg-pink-600 transition"
             >
-              {pending ? 'Submitting...' : 'Sign In'}
+              {pending ? "Submitting..." : "Sign In"}
             </button>
           </div>
+
+          {/* General Error Output */}
+          {state?.errors?.general && (
+            <div className="mt-4 mb-6 text-red-500 text-center">
+              {state.errors.general.map((err, i) => (
+                <p key={i}>{err}</p>
+              ))}
+            </div>
+          )}
 
           {/* Link to Register */}
           <p className="text-center text-sm text-white">

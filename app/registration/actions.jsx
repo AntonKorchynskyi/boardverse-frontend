@@ -18,8 +18,6 @@ export async function register(state, formData) {
 
   const user = validationResult.data;
 
-  console.log(user);
-
   // Send user info to backend
   try {
     const response = await fetch(
@@ -35,9 +33,7 @@ export async function register(state, formData) {
 
     const data = await response.json();
 
-    if (response.ok) {
-      console.log(`Success: ${data.message}, User ID: ${data.userId}`);
-    } else {
+    if (!response.ok) {
       return { errors: { general: [data.message || "Registration failed!"] } };
     }
   } catch (error) {

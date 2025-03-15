@@ -125,7 +125,7 @@ const RegistrationPage = () => {
 
           {/* General Error Output */}
           {state?.errors?.general && (
-            <div className="mt-4 text-red-500">
+            <div className="mt-4 mb-6 text-red-500 text-center">
               {state.errors.general.map((err, i) => (
                 <p key={i}>{err}</p>
               ))}

@@ -3,12 +3,18 @@
 import Image from "next/image";
 import { ArrowRightCircle } from "lucide-react";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 export default function GameCard({ gameName, gameDescription, gameUrl, gameImageUrl }) {
   const isAvailable = gameName === "Take 5"; // condition to check availability
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(true);
+  }, []);
 
   return (
-    <div className="bg-backgroundPanelThird rounded-lg shadow-lg p-4">
+    <div className={`bg-backgroundPanelThird rounded-lg shadow-lg p-4 opacity-0 transition-opacity duration-500 ${visible ? 'opacity-100' : ''}`}>
       <Link href={`/browse/${gameUrl}`}>
         {/* Image Section */}
         <div className="relative w-full">

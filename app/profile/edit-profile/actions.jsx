@@ -36,10 +36,7 @@ export async function editProfile(state, formData) {
       throw new Error(`Request failed with status ${res.status}`);
     }
 
-    console.log(await response.json());
-
   } catch (error) {
-    console.log(`Edit profile error: ${error}`);
     return { errors: { general: ["Unexpected error during profile edit"] } };
   }
 
