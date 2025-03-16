@@ -32,10 +32,11 @@ export async function register(state, formData) {
     );
 
     const data = await response.json();
-
+    
     if (!response.ok) {
-      return { errors: { general: [data.message] } };
+      return { errors: { general: [data.error] } };
     }
+    
   } catch (error) {
     return { errors: { general: [error.message] } };
   }
