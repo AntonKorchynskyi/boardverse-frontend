@@ -14,7 +14,7 @@ export default function GameCard({ gameName, gameDescription, gameUrl, gameImage
   }, []);
 
   return (
-    <div className={`bg-backgroundPanelThird rounded-lg shadow-lg p-4 opacity-0 transition-opacity duration-500 ${visible ? 'opacity-100' : ''}`}>
+    <div className={`bg-backgroundPanelThird rounded-lg shadow-lg p-4 opacity-0 transition-opacity duration-[900ms] ${visible ? 'opacity-100' : ''}`}>
       <Link href={`/browse/${gameUrl}`}>
         {/* Image Section */}
         <div className="relative w-full">
