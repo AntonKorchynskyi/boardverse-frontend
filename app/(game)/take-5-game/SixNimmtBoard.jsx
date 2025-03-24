@@ -1,3 +1,5 @@
+// components/SixNimmtBoard.jsx
+// TODO
 import React from 'react';
 
 const SixNimmtBoard = ({ G, ctx, moves, playerID }) => {
@@ -10,6 +12,11 @@ const SixNimmtBoard = ({ G, ctx, moves, playerID }) => {
   const handleChooseRow = (rowIndex) => {
     moves.chooseRow(rowIndex);
   };
+
+  if (ctx.phase === 'waiting') {
+    // Render the Lobby UI if we’re still waiting
+    return <Lobby G={G} ctx={ctx} moves={moves} playerID={playerID} />;
+  }
 
   return (
     <div className="text-gray-100 p-6">

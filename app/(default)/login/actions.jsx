@@ -33,7 +33,7 @@ export async function login(state, formData) {
     const data = await response.json();
 
     if (!response.ok) {
-      return { errors: { general: [data.message || "Login failed!"] } };
+      return { errors: { general: [data.error || "Login failed!"] } };
     }
 
     // backend returns a token

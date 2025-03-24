@@ -3,6 +3,10 @@
 import { cookies } from "next/headers";
 
 // fetch Profile Data (Server-Side) with token-based auth
+/* 
+   returns userId, userName, userEmail, userStatus, userProfileDescription, 
+   userLevel, userCoins 
+*/ 
 export default async function getUserProfile() {
   
   // retrieve the token from cookies

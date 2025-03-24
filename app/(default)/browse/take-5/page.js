@@ -2,6 +2,8 @@
 
 import React, { useState } from "react";
 import Guide from "./Guide";
+import HostGame from "@/components/HostGame";
+import JoinGame from "@/components/JoinGame";
 
 const Take5 = () => {
   const [selectedTab, setSelectedTab] = useState("");
@@ -53,8 +55,8 @@ const Take5 = () => {
         </div>
             
         <div className="mt-8 p-4">
-          {selectedTab === "host" && <h1>hello, host</h1>}
-          {selectedTab === "join" && <h1>hello, join</h1>}
+          {selectedTab === "host" && <HostGame />}
+          {selectedTab === "join" && <JoinGame />}
           {selectedTab === "leaderboard" && <h1>hello, leaderboard</h1>}
           {selectedTab === "guide" && <Guide/>}
         </div>    

@@ -1,32 +1,29 @@
+// components/SixNimmtGame.jsx
 export default {
-    name: "six-nimmt",
-    setup: (ctx, setupData) => {
-      const players = {};
-      for (let i = 0; i < ctx.numPlayers; i++) {
-        players[i] = { hand: [], penaltyPile: [] };
-      }
-      return {
-        rows: [[], [], [], []],
-        players,
-      };
+  name: "six-nimmt",
+  setup: (ctx, setupData) => {
+    const players = {};
+    for (let i = 0; i < ctx.numPlayers; i++) {
+      players[i] = { hand: [], penaltyPile: [] };
+    }
+    return {
+      rows: [[], [], [], []],
+      players,
+    };
+  },
+  moves: {
+    startGame: (G, ctx) => {
+      // Initialize players’ hands, deal cards, and set up rows.
+      console.log('startGame move called');
     },
-    moves: {
-      startGame: (G, ctx) => {
-        // Example: Initialize players’ hands, deal cards, set up rows.
-        console.log('start');
-        
-      },
-      selectCard: (G, ctx, cardValue) => {
-        // Example: Remove card from hand, mark it as selected.
-        console.log('selectCard');
-        
-      },
-      chooseRow: (G, ctx, rowIndex) => {
-        // Example: Handle row selection and assign penalty cards.
-        console.log('chooseRow');
-        
-      },
+    selectCard: (G, ctx, cardValue) => {
+      // Remove card from hand, mark it as selected.
+      console.log('selectCard move called with', cardValue);
     },
-    // Additional turn and phase logic goes here.
-  };
-  
+    chooseRow: (G, ctx, rowIndex) => {
+      // Handle row selection and assign penalty cards.
+      console.log('chooseRow move called with row index', rowIndex);
+    },
+  },
+  // Add additional turn and phase logic as needed.
+};

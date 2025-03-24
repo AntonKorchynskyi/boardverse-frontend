@@ -34,9 +34,9 @@ export async function register(state, formData) {
     const data = await response.json();
     
     if (!response.ok) {
-      return { errors: { general: [data.error] } };
+      return { errors: { general: [data.error || "Registration failed!"] } };
     }
-    
+
   } catch (error) {
     return { errors: { general: [error.message] } };
   }
