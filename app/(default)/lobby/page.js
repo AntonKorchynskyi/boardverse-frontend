@@ -1,15 +1,12 @@
-import React from 'react'
-import LobbyPlayer from './LobbyPlayer'
+// app/lobby/page.jsx (if using Next.js App Router)
+"use client";
+import React from 'react';
+import BuiltInLobby from './BuiltInLobby';
 
-const Lobby = () => {
+export default function LobbyPage() {
   return (
-    <div>
-        <h1 className='text-3xl'>Lobby</h1>
-        {/* Add Link maybe? */}
-        <button>Start the Game</button> 
-        <LobbyPlayer />
+    <div className="min-h-screen bg-gray-900 p-8">
+      <BuiltInLobby />
     </div>
-  )
+  );
 }
-
-export default Lobby

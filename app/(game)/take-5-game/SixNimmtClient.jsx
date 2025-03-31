@@ -8,8 +8,8 @@ const SixNimmtClient = Client({
   game: SixNimmtGame,
   board: SixNimmtBoard,
   debug: true, // Turn off in production
-  server: 'https://boarverse-websocket.onrender.com/games/six-nimmt-full', // Adjust to your backend URL
-  multiplayer: SocketIO({ server: 'https://boarverse-websocket.onrender.com/games/six-nimmt-full' }), // Ensures WebSocket connection
+  server: 'http://localhost:8000/games/six-nimmt', // Adjust to your backend URL
+  multiplayer: SocketIO({ server: 'http://localhost:8000/games/six-nimmt' }), // Ensures WebSocket connection
 });
 
 export default SixNimmtClient;

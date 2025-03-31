@@ -38,7 +38,7 @@ export default async function joinMatch(state, formData) {
     const data = await res.json();
     console.log(data);
 
-    redirect(`/lobby?matchID=${matchID}&playerID=${providedPlayerID}`);
+    redirect(`/take-5-game?matchID=${matchID}&playerID=${providedPlayerID}`);
 
   } catch (error) {
     // the redirect exception, need to rethrow it to allow for redirect (catching it breaks the action).
@@ -74,7 +74,7 @@ export async function joinMatchHost(matchID, providedPlayerID) {
   
     const data = await res.json();
 
-    redirect(`/lobby?matchID=${matchID}&playerID=${providedPlayerID}`);
+    redirect(`/take-5-game?matchID=${matchID}&playerID=${providedPlayerID}`);
 
   } catch (error) {
     // the redirect exception, need to rethrow it to allow for redirect (catching it breaks the action).
