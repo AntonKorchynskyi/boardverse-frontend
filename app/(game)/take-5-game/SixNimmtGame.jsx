@@ -1,3 +1,5 @@
+'use client';
+
 const ROUND_END_SCORE_THRESHOLD = 66; // Game ends if any player reaches or exceeds 66
 const CARDS_PER_PLAYER = 10;
 const INITIAL_ROWS = 4;
@@ -59,12 +61,13 @@ function shuffle(array) {
 function setupRound(G, ctx) {
   const deck = createDeck();
   shuffle(deck);
-  const numPlayers = ctx.numPlayers;
 
-  // Update the existing players field with gameplay data.
+  const numPlayers = ctx.numPlayers;
+  const players = {};
+
+  // Deal 10 cards to each player.
   for (let i = 0; i < numPlayers; i++) {
-    G.players[i] = {
-      ...G.players[i],
+    players[i] = {
       hand: deck.splice(0, CARDS_PER_PLAYER),
       chosenCard: null,
       penaltyPile: [],
@@ -72,16 +75,56 @@ function setupRound(G, ctx) {
     };
   }
 
-  // Initialize rows.
+  // Create 4 rows, each with 1 card
   const rows = [];
   for (let i = 0; i < INITIAL_ROWS; i++) {
     rows.push([deck.shift()]);
   }
-  G.roundNumber += 1;
+
+  G.roundNumber += 1; // increment round
   G.rows = rows;
+  G.playersData = players;
   G.turnCount = 0;
   G.deck = deck;
-  G.phaseLog = [];
+  G.phaseLog = []; // optional
+
+  // console.log('setup begin');
+  
+  // const deck = createDeck();
+  // shuffle(deck);
+  // console.log('deck: ', deck);
+  
+  // console.log('ctx1: ', ctx);
+  
+  // const numPlayers = ctx.numPlayers;
+
+  // console.log('ctx2: ', ctx);
+
+  // console.log('G: ', G);
+  // console.log(Reflect.ownKeys(G));
+  // console.log();
+  
+  // // Update the existing players field with gameplay data.
+  // for (let i = 0; i < numPlayers; i++) {
+  //   G.players[i] = {
+  //     ...G.players[i],
+  //     hand: deck.splice(0, CARDS_PER_PLAYER),
+  //     chosenCard: null,
+  //     penaltyPile: [],
+  //     info: G.playersInfo[i], // carry over credentials
+  //   };
+  // }
+
+  // // Initialize rows.
+  // const rows = [];
+  // for (let i = 0; i < INITIAL_ROWS; i++) {
+  //   rows.push([deck.shift()]);
+  // }
+  // G.roundNumber += 1;
+  // G.rows = rows;
+  // G.turnCount = 0;
+  // G.deck = deck;
+  // G.phaseLog = [];
 }
 
 
@@ -134,25 +177,36 @@ function setupGame(ctx) {
  */
 function startGame(state) {
 
-  console.log(state);
+  // console.log("start begin");
   
-
+  // console.log(state);
+  
   const { G, ctx } = state;
 
-  console.log('G');
+  // console.log('G', G);
+
+  // console.log('ctx', ctx);
   
-  console.log(G);
+  // console.log('before if 1');
+  console.log('ctx should b under');
   
-  console.log('ctx');
-  console.log(ctx);
+  console.log('ctx ', ctx);
   
-  if (ctx.playerID !== '0') return; // Only host starts the game.
+  if (ctx.currentPlayer !== '0') return; // Only host starts the game.
+  console.log('after if 1');
+  console.log('G start: ', G);
+  
   if (G.started) return; // Prevent multiple starts.
+  console.log('after if 2');
+ 
+
   G.started = true;
   setupRound(G, ctx);
   console.log("after setup and before choosing");
   
-  ctx.events.setPhase('choosing');
+  console.log('ctx after setup: ', ctx);
+  
+  ctx.phase = 'choosing';
   console.log("Current phase:", ctx.phase);
 }
 

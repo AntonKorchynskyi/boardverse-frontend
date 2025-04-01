@@ -1,3 +1,5 @@
+'use client';
+
 // components/SixNimmtClient.jsx
 import { Client } from 'boardgame.io/react';
 import { SocketIO } from 'boardgame.io/multiplayer';

@@ -1,18 +1,20 @@
+'use client';
+
 import React from 'react';
 
 const SixNimmtBoard = ({ G, ctx, moves, playerID }) => {
   // When game is still in waiting phase, display a waiting screen.
   if (ctx.phase === 'waiting') {
 
-    console.log(G);
+    console.log('board G: ', G);
     console.log('empty');
-    console.log(ctx);
+    console.log('ctx: ', ctx);
     
     console.log('before moves');
     
-    console.log(moves);
+    console.log('moves ', moves);
 
-    console.log(playerID);
+    console.log('playerId ', playerID);
     
     console.log("Current phase:", ctx.phase);
     
