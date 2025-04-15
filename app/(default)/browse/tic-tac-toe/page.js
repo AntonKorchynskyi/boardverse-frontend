@@ -4,19 +4,20 @@ import React, { useState } from "react";
 import Guide from "./Guide";
 import HostGame from "@/components/HostGame";
 import JoinGame from "@/components/JoinGame";
+import LobbyScreen from "@/components/LobbyScreen";
 
-const Take5 = () => {
+const TicTacToe = () => {
   const [selectedTab, setSelectedTab] = useState("host");
 
   return (
     <>
-      {/* <div className="bg-yellow-500 w-full h-72 mt-8"></div> */}
 
-      <h1 className="text-gray-300 text-[8rem] bg-backgroundPanelSec rounded-lg my-4 text-center ">Take 5</h1>
+        <h1 className="text-gray-300 text-[8rem] bg-backgroundPanelSec rounded-lg my-4 text-center ">Tic Tac Toe</h1>
+
 
       <div className="p-8 bg-backgroundPanelSec min-h-screen w-11/12 m-auto">
         <div className="bg-[#4c0080] py-4">
-          <div className="flex justify-around items-center gap-8 text-white font-medium">
+          <div className="flex justify-around items-center  text-white font-medium">
             <button
               href="#"
               onClick={() => setSelectedTab("host")}
@@ -26,7 +27,7 @@ const Take5 = () => {
             >
               Host a session
             </button>
-            <button
+            {/* <button
               href="#"
               onClick={() => setSelectedTab("join")}
               className={`hover:underline transition duration-200 ${
@@ -34,7 +35,7 @@ const Take5 = () => {
               }`}
             >
               Join a session
-            </button>
+            </button> */}
             <button
               href="#"
               onClick={() => setSelectedTab("leaderboard")}
@@ -42,7 +43,7 @@ const Take5 = () => {
                 selectedTab === "leaderboard" ? "text-orange-500" : "text-gray-300"
               }`}
             >
-              Leaderboard
+              Lobbies
             </button>
             <button
               href="#"
@@ -58,8 +59,8 @@ const Take5 = () => {
             
         <div className="mt-8 p-4">
           {selectedTab === "host" && <HostGame />}
-          {selectedTab === "join" && <JoinGame />}
-          {selectedTab === "leaderboard" && <h1>hello, leaderboard</h1>}
+          {/* {selectedTab === "join" && <JoinGame />} */}
+          {selectedTab === "leaderboard" && <LobbyScreen/>}
           {selectedTab === "guide" && <Guide/>}
         </div>    
             
@@ -68,4 +69,4 @@ const Take5 = () => {
   );
 };
 
-export default Take5;
+export default TicTacToe;

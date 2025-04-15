@@ -42,7 +42,7 @@ async function getUserStats() {
   // retrieve the token from cookies
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
-
+  
   // retrieve user stats
   try {
     const res = await fetch(
@@ -222,9 +222,9 @@ export default async function ProfilePage() {
                 Edit Profile
             </Link>
 
-            <Link href="/" className="px-4 py-2 bg-white text-[#330059] font-medium rounded-lg hover:bg-gray-200">
+            {/* <Link href="/" className="px-4 py-2 bg-white text-[#330059] font-medium rounded-lg hover:bg-gray-200">
               Games History
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

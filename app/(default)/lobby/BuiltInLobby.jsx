@@ -1,8 +1,8 @@
 // // components/BuiltInLobby.jsx
 // import React from 'react';
 // import { Lobby } from 'boardgame.io/react';
-// import SixNimmtGame from '@/app/(game)/take-5-game/TicTacToeGame';
-// import SixNimmtBoard from '@/app/(game)/take-5-game/TicTacToeBoard';
+// import TicTacToe from '@/app/(game)/take-5-game/TicTacToeGame';
+// import TicTacToeBoard from '@/app/(game)/take-5-game/TicTacToeBoard';
 
 // // Dummy game config for the lobby (only used for UI purposes).
 // const DummyGame = {
@@ -20,8 +20,8 @@
 //       lobbyServer={`http://localhost:8000`}
 //       gameComponents={[
 //         {
-//           game: SixNimmtGame,
-//           board: SixNimmtBoard,
+//           game: TicTacToe,
+//           board: TicTacToeBoard,
 //         },
 //       ]}
 //     />
