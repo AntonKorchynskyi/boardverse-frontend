@@ -2,7 +2,7 @@
 
 export default async function getAvailablePlayerIDs(matchID) {
   
-  const res = await fetch(`https://boarverse-websocket.onrender.com/games/six-nimmt-full/${matchID}`);
+  const res = await fetch(`http://localhost:8001/games/tic-tac-toe/${matchID}`);
   const matchData = await res.json();
   
   for (let i = 1; i < matchData.players.length; i++) {

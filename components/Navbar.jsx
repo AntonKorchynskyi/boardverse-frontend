@@ -45,11 +45,6 @@ export default async function Navbar() {
           </Link>
         </li>
         <li className="hover:text-gray-300 transition">
-          <Link href="/settings" className="capitalize">
-            Settings
-          </Link>
-        </li>
-        <li className="hover:text-gray-300 transition">
           <Link href="/about" className="capitalize">
             About
           </Link>

@@ -4,7 +4,7 @@ import React from 'react'
 // list of all games
 const popularGames = [
   { gameName: "Take 5", gameDescription: "A fast-paced card game of risk and strategy. Avoid collecting penalty cards while planning your moves wisely!", gameUrl: "take-5", gameImageUrl: "/take-5-game.jpg"},
-  { gameName: "Scout", gameDescription: "A unique ladder-climbing game where strategy meets creativity. Outsmart opponents by cleverly playing or rearranging your hand!", gameUrl: "scout", gameImageUrl: "/scout-game.png"},
+  { gameName: "Tic Tac Toe", gameDescription: "A quick two-player game of Xs and Os. Line up three in a row to win! Mark wisely to outsmart your rival and win!", gameUrl: "tic-tac-toe", gameImageUrl: "/tic-tac-toe-game.jpg"},
   { gameName: "Catan", gameDescription: "Build, trade, and settle your way to victory in this iconic resource-management board game. Every turn brings new opportunities!", gameUrl: "catan", gameImageUrl: "/catan-game.png"},
   { gameName: "Senators", gameDescription: "A game of cunning and negotiation where you vie for influence in ancient Rome. Outwit opponents to gain control of the Senate!", gameUrl: "senators", gameImageUrl: "/senators-game.png"},
   { gameName: "Carcassonne", gameDescription: "Build cities, roads, and farms in this classic tile-laying game. Strategize to claim territories and outscore your rivals!", gameUrl: "carcassonne", gameImageUrl: "/carcassonne-game.png"},

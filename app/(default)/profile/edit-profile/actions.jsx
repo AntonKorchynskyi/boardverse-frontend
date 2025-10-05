@@ -22,20 +22,22 @@ export async function editProfile(state, formData) {
   // send new user details (userName and userProfileDescription) to update the user
   try {
     const userProfileData = validationResult.data;
-    const response = await fetch("https://boardverse-backend.onrender.com/user/profile", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(userProfileData),
-      cache: "no-store",
-    });
+    const response = await fetch(
+      "https://boardverse-backend.onrender.com/user/profile",
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(userProfileData),
+        cache: "no-store",
+      }
+    );
 
     if (!response.ok) {
       throw new Error(`Request failed with status ${res.status}`);
     }
-
   } catch (error) {
     return { errors: { general: ["Unexpected error during profile edit"] } };
   }
