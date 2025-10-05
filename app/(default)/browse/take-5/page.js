@@ -92,13 +92,6 @@ const Take5 = () => {
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-backgroundPanelThird rounded-lg p-8 max-w-md mx-4 relative">
-            {/* Close Button */}
-            <button
-              onClick={closeModal}
-              className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl"
-            >
-              ×
-            </button>
 
             <div className="text-center">
               {/* Development Progress Animation */}
