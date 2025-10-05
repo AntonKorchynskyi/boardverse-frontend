@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export default function GameCard({ gameName, gameDescription, gameUrl, gameImageUrl }) {
-  const isAvailable = gameName === "Take 5" || gameName === "Tic Tac Toe"; // condition to check availability
+  const isAvailable = gameName === "Tic Tac Toe"; // condition to check availability
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
