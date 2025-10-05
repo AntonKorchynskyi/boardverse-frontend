@@ -1,4 +1,3 @@
-// app/api/updateUserProfile/route.js
 import { cookies } from "next/headers";
 
 export async function PUT(request) {
@@ -12,15 +11,18 @@ export async function PUT(request) {
   const body = await request.json();
 
   // Call the external user profile update API endpoint.
-  const res = await fetch("https://boardverse-backend.onrender.com/user/profile", {
-    method: "PUT",
-    headers: {
-      "Content-Type": "application/json",
-      "Authorization": `Bearer ${token}`
-    },
-    body: JSON.stringify(body),
-    cache: "no-store"
-  });
+  const res = await fetch(
+    "https://boardverse-backend.onrender.com/user/profile",
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+      cache: "no-store",
+    }
+  );
 
   if (!res.ok) {
     const errorText = await res.text();

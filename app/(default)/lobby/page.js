@@ -1,4 +1,3 @@
-// // app/lobby/page.jsx (if using Next.js App Router)
 // "use client";
 // import React from 'react';
 // import BuiltInLobby from './BuiltInLobby';

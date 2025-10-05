@@ -1,4 +1,3 @@
-// // components/BuiltInLobby.jsx
 // import React from 'react';
 // import { Lobby } from 'boardgame.io/react';
 // import TicTacToe from '@/app/(game)/take-5-game/TicTacToeGame';

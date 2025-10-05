@@ -38,11 +38,10 @@ async function getUserProfile() {
 
 // fetch User Stats (Server-Side) with token-based auth
 async function getUserStats() {
-  
   // retrieve the token from cookies
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
-  
+
   // retrieve user stats
   try {
     const res = await fetch(
@@ -96,7 +95,6 @@ function GameActivityCard({ imageUrl, title, hours }) {
 
 // Main Profile Page
 export default async function ProfilePage() {
-
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;
 
@@ -115,9 +113,7 @@ export default async function ProfilePage() {
     return (
       <div className="p-8 bg-backgroundPanelSec min-h-screen">
         <h1 className="text-2xl text-red-500">Error</h1>
-        <p className="text-red-400">
-          Unable to fetch profile or stats data.
-        </p>
+        <p className="text-red-400">Unable to fetch profile or stats data.</p>
       </div>
     );
   }
@@ -146,7 +142,6 @@ export default async function ProfilePage() {
 
   return (
     <div className="p-8 bg-backgroundPanelSec min-h-screen">
-      
       {/* ──────────────── Upper Section ──────────────── */}
       <div className="flex mb-6 items-center">
         {/* Header Section (user picture and information) */}
@@ -203,9 +198,7 @@ export default async function ProfilePage() {
           <div className="flex items-center justify-between w-full mb-6">
             <h2 className="text-2xl text-white">Rank Score</h2>
             <div className="flex items-center gap-2 self-baseline">
-              <span className="text-2xl font-bold text-white">
-                {rankScore}
-              </span>
+              <span className="text-2xl font-bold text-white">{rankScore}</span>
               <Image
                 src="/achievement-award-medal-icon.svg"
                 alt="Medal Icon"
@@ -218,8 +211,11 @@ export default async function ProfilePage() {
 
           {/* Action Buttons */}
           <div className="flex gap-4">
-            <Link href="/profile/edit-profile" className="px-4 py-2 bg-white text-[#330059] font-medium rounded-lg hover:bg-gray-200">
-                Edit Profile
+            <Link
+              href="/profile/edit-profile"
+              className="px-4 py-2 bg-white text-[#330059] font-medium rounded-lg hover:bg-gray-200"
+            >
+              Edit Profile
             </Link>
 
             {/* <Link href="/" className="px-4 py-2 bg-white text-[#330059] font-medium rounded-lg hover:bg-gray-200">
@@ -235,9 +231,7 @@ export default async function ProfilePage() {
         <div className="flex flex-col w-2/3 bg-backgroundPanelThird">
           {/* Header */}
           <div className="flex justify-between items-center bg-[#1a0d37] p-4">
-            <h2 className="text-2xl font-bold text-white">
-              Recent Activity
-            </h2>
+            <h2 className="text-2xl font-bold text-white">Recent Activity</h2>
             <p className="text-gray-400 text-xl">12 hrs</p>
           </div>
 

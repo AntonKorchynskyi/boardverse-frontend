@@ -1,4 +1,3 @@
-// LobbyScreen.jsx
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -36,7 +35,7 @@ const LobbyScreen = () => {
       ) : (
         <ul>
           {matches.map((match) => (
-            <LobbyItem match={match} key={match.matchID}/>
+            <LobbyItem match={match} key={match.matchID} />
           ))}
         </ul>
       )}

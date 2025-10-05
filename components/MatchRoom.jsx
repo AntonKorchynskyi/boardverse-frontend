@@ -1,24 +1,24 @@
-// MatchRoom.jsx
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
+import React, { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import Link from "next/link";
 
 const MatchRoom = () => {
   const router = useRouter();
-
-  // Extract matchID from URL query parameters.
-  const searchParams = new URLSearchParams(window.location.search);
-  const matchID = searchParams.get("matchID");
-
+  const searchParams = useSearchParams();
   const [matchInfo, setMatchInfo] = useState(null);
+
+  // Extract matchID from URL query parameters using Next.js useSearchParams
+  const matchID = searchParams.get("matchID");
 
   // Function to fetch detailed match information.
   const fetchMatchInfo = async () => {
     try {
       // Updated endpoint for a specific match.
-      const res = await fetch(`http://localhost:8001/games/tic-tac-toe/${matchID}`);
+      const res = await fetch(
+        `http://localhost:8001/games/tic-tac-toe/${matchID}`
+      );
       if (!res.ok) {
         throw new Error("Failed to fetch match info");
       }
@@ -81,9 +81,7 @@ const MatchRoom = () => {
         <p>Waiting for more players to join...</p>
       )}
       <br />
-      <Link href="/browse/tic-tac-toe">
-        Back to Lobby List
-      </Link>
+      <Link href="/browse/tic-tac-toe">Back to Lobby List</Link>
     </div>
   );
 };

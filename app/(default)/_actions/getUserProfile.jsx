@@ -6,9 +6,8 @@ import { cookies } from "next/headers";
 /* 
    returns userId, userName, userEmail, userStatus, userProfileDescription, 
    userLevel, userCoins 
-*/ 
+*/
 export default async function getUserProfile() {
-  
   // retrieve the token from cookies
   const cookieStore = await cookies();
   const token = cookieStore.get("access_token")?.value;

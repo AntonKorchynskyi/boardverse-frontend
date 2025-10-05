@@ -16,7 +16,6 @@ export async function POST(request) {
       });
 
       console.log("Token successfully deleted");
-      
     } catch (error) {
       console.error("Error invalidating token on backend:", error);
     }
