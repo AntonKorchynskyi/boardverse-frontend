@@ -2,6 +2,8 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 Deployment Link [https://boardverse.vercel.app/](https://boardverse.vercel.app/)
 
+Deployments uses ignore peer dependencies option
+
 ## Getting Started
 
 First, run the development server:
