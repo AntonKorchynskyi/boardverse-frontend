@@ -149,7 +149,7 @@ export default async function ProfilePage() {
           {/* User Avatar */}
           <div className="bg-backgroundPanelThird mr-6 rounded-md p-2 h-full">
             <Image
-              src="/basic-profile-pic.png"
+              src="/assets/images/basic-profile-pic.png"
               alt="User Avatar"
               width={80}
               height={80}
@@ -200,7 +200,7 @@ export default async function ProfilePage() {
             <div className="flex items-center gap-2 self-baseline">
               <span className="text-2xl font-bold text-white">{rankScore}</span>
               <Image
-                src="/achievement-award-medal-icon.svg"
+                src="/assets/images/achievement-award-medal-icon.svg"
                 alt="Medal Icon"
                 width={24}
                 height={24}
@@ -238,17 +238,17 @@ export default async function ProfilePage() {
           {/* Game Activity Cards */}
           <div className="flex flex-col gap-4 p-6">
             <GameActivityCard
-              imageUrl="/scout-game.png"
+              imageUrl="/assets/images/scout-game.png"
               title="Scout"
               hours="8 hrs on record"
             />
             <GameActivityCard
-              imageUrl="/catan-game.png"
+              imageUrl="/assets/images/catan-game.png"
               title="Catan"
               hours="2 hrs on record"
             />
             <GameActivityCard
-              imageUrl="/take-5-game.jpg"
+              imageUrl="/assets/images/take-5-game.jpg"
               title="Take 5"
               hours="2 hrs on record"
             />

@@ -22,7 +22,7 @@ export default async function Navbar() {
       <Link href="/">
         <div className="flex items-center text-lg font-semibold">
           <Image
-            src="/logo.png"
+            src="/assets/images/logo.png"
             alt="BoardVerse logo"
             width={65}
             height={65}

@@ -2,16 +2,16 @@ import Link from "next/link";
 import GameCard from "@/components/GameCard";
 
 const popularGames = [
-  { gameName: "Tic Tac Toe", gameDescription: "A quick two-player game of Xs and Os. Line up three in a row to win! Mark wisely to outsmart your rival and win!", gameUrl: "tic-tac-toe", gameImageUrl: "/tic-tac-toe-game.jpg"},
-  { gameName: "Take 5", gameDescription: "A fast-paced card game of risk and strategy. Avoid collecting penalty cards while planning your moves wisely!", gameUrl: "take-5", gameImageUrl: "/take-5-game.jpg"},
-  { gameName: "Catan", gameDescription: "Build, trade, and settle your way to victory in this iconic resource-management board game. Every turn brings new opportunities!", gameUrl: "catan", gameImageUrl: "/catan-game.png"},
+  { gameName: "Tic Tac Toe", gameDescription: "A quick two-player game of Xs and Os. Line up three in a row to win! Mark wisely to outsmart your rival and win!", gameUrl: "tic-tac-toe", gameImageUrl: "/assets/images/tic-tac-toe-game.jpg"},
+  { gameName: "Take 5", gameDescription: "A fast-paced card game of risk and strategy. Avoid collecting penalty cards while planning your moves wisely!", gameUrl: "take-5", gameImageUrl: "/assets/images/take-5-game.jpg"},
+  { gameName: "Catan", gameDescription: "Build, trade, and settle your way to victory in this iconic resource-management board game. Every turn brings new opportunities!", gameUrl: "catan", gameImageUrl: "/assets/images/catan-game.png"},
 ];
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col py-8">
       {/* Header Section */}
-      <div className="flex items-center justify-center text-[#e9e6db] bg-[url('/home-background-image.png')] bg-cover bg-center bg-no-repeat text-center w-256 h-96">
+      <div className="flex items-center justify-center text-[#e9e6db] bg-[url('/assets/images/home-background-image.png')] bg-cover bg-center bg-no-repeat text-center w-256 h-96">
         <div>
           <h1 className="text-5xl font-bold mb-4">BoardVerse</h1>
           <p className="text-lg font-medium mb-6">
